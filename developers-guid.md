@@ -37,6 +37,67 @@ cd app
 npm install @expo/ngrok
 ```
 
+## اجرای پروژه با Docker و Docker Desktop
+
+- پیش‌نیاز: Docker Desktop روی سیستم شما نصب و اجرا شده باشد.
+- فایل `docker-compose.yml` در ریشه پروژه قرار دارد و شامل PostgreSQL و سرویس backend است.
+- برای اجرای کانتینرها، از ریشه پروژه دستور زیر را اجرا کنید:
+
+```bash
+cd /workspaces/absence-tracker
+docker compose up --build
+```
+
+- برای اجرای سرویس‌ها در پس‌زمینه:
+
+```bash
+docker compose up --build -d
+```
+
+- وضعیت کانتینرها را با این دستور ببینید:
+
+```bash
+docker compose ps
+```
+
+- لاگ‌های کانتینرها را به صورت زنده مشاهده کنید:
+
+```bash
+docker compose logs -f
+```
+
+- پس از بالا آمدن سرویس‌ها:
+  - PostgreSQL روی `localhost:5432`
+  - API backend روی `localhost:4000`
+
+- برای اطمینان از بالا آمدن backend:
+
+```bash
+curl http://localhost:4000/health
+```
+
+- مقادیر اتصال به دیتابیس در `docker-compose.yml`:
+
+```text
+postgres://postgres:postgres@postgres:5432/absence_tracker
+```
+
+- اجرای Expo در کنار Docker:
+  1. ابتدا کانتینرها را اجرا کنید:
+
+```bash
+docker compose up --build
+```
+
+  2. سپس اپ Expo را اجرا کنید:
+
+```bash
+cd app
+npx expo start --web --lan --clear
+```
+
+- اگر از Docker Desktop استفاده می‌کنید، در تب `Containers / Apps` می‌توانید کانتینرها و حجم داده PostgreSQL را ببینید.
+
 **نکات مربوط به مدیا (عکس / صوت)**
 - کتابخانه‌های استفاده‌شده: `expo-image-picker`, `expo-av` (نسخه‌های سازگار از طریق `npx expo install` اضافه شده‌اند).
 - مجوزها در زمان اجرا از کاربر پرسیده می‌شود — گالری، دوربین و میکروفون.
