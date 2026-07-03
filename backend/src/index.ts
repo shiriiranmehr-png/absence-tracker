@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import { json } from 'express';
 import dotenv from 'dotenv';
-import { initDatabase, checkDatabaseConnection, closePool } from './db';
-import { videoRouter } from './routes/videos';
-import { journalRouter } from './routes/journal';
+import { initDatabase, checkDatabaseConnection, closePool } from './db.js';
+import { videoRouter } from './routes/videos.js';
+import { journalRouter } from './routes/journal.js';
 
 dotenv.config();
 
