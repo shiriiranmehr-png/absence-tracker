@@ -1,332 +1,302 @@
-# راهنمای سیستم طراحی - فارسی
+# 📱 Absence Tracker - Application
 
-سلام! این پروژه اکنون یک **سیستم طراحی حرفه‌ای و مکمل** دارد. تمام مستندات به فارسی نوشته‌شده‌اند.
+یک اپلیکیشن موبایل فارسی برای ثبت یادآوری‌ها و ساخت ویدیوهای کوتاه.
 
-## 📚 مستندات فارسی
+## ✨ Features
 
-### 1. **[DESIGN_SYSTEM_FA.md](./DESIGN_SYSTEM_FA.md)** 🎨
-راهنمای سیستم طراحی کامل:
-- پالت رنگی (20 رنگ معنایی)
-- مقیاس فاصله‌گذاری
-- تایپوگرافی
-- توضیح تمام اجزاء
-- بهترین شیوه‌ها
-
-### 2. **[COMPONENT_GUIDE_FA.md](./COMPONENT_GUIDE_FA.md)** 💡
-مثال‌های عملی برای استفاده:
-- فرم با اعتبارسنجی
-- مودال با فرم
-- لیست با نشان‌های وضعیت
-- حالت‌های خطا و موفقیت
-- فرم چندمرحله‌ای
-
-### 3. **[DESIGN_SYSTEM_SUMMARY_FA.md](./DESIGN_SYSTEM_SUMMARY_FA.md)** 📊
-خلاصه‌ی سریع:
-- چیز هایی که انجام شد
-- ساختار پوشه
-- توکن‌های طراحی
-- چک‌لیست اجزاء
+- 📹 **ساخت ویدیو** - عکس‌ها و صدا را به ویدیو کوتاه تبدیل کنید
+- 📔 **Journal** - یادآوری‌های روزانه با تصاویر و برچسب‌ها
+- 🎬 **Library** - مدیریت تمام ویدیوهای ساخته شده
+- 📊 **Analytics** - تحلیل احساسات و insights
+- 🌙 **Dark Mode** - رابط کاربری تیره و راحت چشم
+- 🎨 **Design System** - سیستم طراحی جامع و یکپارچه
 
 ---
 
-## 🎯 شروع سریع
+## 🚀 شروع سریع
 
-### وارد کردن اجزاء:
-```typescript
-import { Button, Input, Modal, Card, Badge, Alert } from '@/components/ui';
-import { colors, spacing, typography } from '@/theme';
+### Docker (آسان‌ترین راه)
+
+```bash
+# نصب Docker Desktop
+# https://www.docker.com/products/docker-desktop
+
+# اجرا کنید
+docker compose up --build
+
+# بررسی سلامت API
+curl http://localhost:4000/health
 ```
 
-### مثال ساده:
-```jsx
-<ScreenContainer>
-  <Input
-    label="نام"
-    placeholder="نام خود را وارد کنید"
-    value={name}
-    onChangeText={setName}
-  />
+### Manual Setup
 
-  <Button
-    title="ذخیره"
-    onPress={handleSave}
-    fullWidth
-  />
-</ScreenContainer>
+```bash
+# Backend
+cd backend
+npm install
+npm run build
+npm start
+
+# Frontend (Terminal جدید)
+cd app
+npm install
+npm start
 ```
+
+**تفصیلات:** [docs/QUICK_START.md](./docs/QUICK_START.md)
 
 ---
 
-## 🎨 اجزاء موجود
+## 📁 ساختار پروژه
 
-### جزء‌های هسته (9)
-- 🔘 **Button** - دکمه با 4 تنوع و 3 اندازه
-- 📝 **Input** - ورودی متن با اعتبارسنجی
-- 📦 **Modal** - دیالوگ مودال
-- 🗂️ **FormField** - فیلد فرم پیشرفته
-- 🖼️ **ScreenContainer** - ظرف صفحه
-- 📇 **Card** - کارت
-- 🏷️ **AppHeader** - سرآیند تطبیق
-- 📋 **SectionHeader** - سرآیند بخش
-- 📊 **MetricTile** - کاشی معیار
-
-### جزء‌های کاربردی (4)
-- 🏷️ **Badge** - نشان برای وضعیت
-- ⚠️ **Alert** - پیام‌های هشدار/موفقیت
-- ➖ **Divider** - جداکننده
-- ⏳ **Loading** - شاخص بارگذاری
-
----
-
-## 🎨 توکن‌های طراحی
-
-### رنگ‌ها
 ```
-اساسی (Accent):    #8fb5ff
-متن اساسی:         #f5f7ff
-متن ثانویه:        #8ca0ca
-پس‌زمینه:          #060816
-سطح:              #101830
-
-موفقیت:           #7dd3c7
-خطا:             #ff6b6b
-هشدار:           #f4c27a
-```
-
-### فاصله‌گذاری
-```
-xs: 4px   sm: 8px   md: 16px   lg: 20px   xl: 24px   2xl: 32px
-```
-
-### تایپوگرافی
-```
-title:    28px
-subtitle: 18px
-body:     14px
-caption:  12px
-micro:    11px
+absence-tracker/
+├── app/                      # 📱 Frontend (React Native + Expo)
+│   ├── src/
+│   │   ├── components/       # UI Components
+│   │   ├── screens/          # App Screens
+│   │   ├── store/            # State Management (Zustand)
+│   │   ├── theme/            # Dark/Light Theme
+│   │   └── types/            # TypeScript Definitions
+│   └── package.json
+│
+├── backend/                  # 🔌 API Server (Express + PostgreSQL)
+│   ├── src/
+│   │   ├── routes/           # API Endpoints
+│   │   ├── db.ts             # Database Connection
+│   │   └── index.ts          # Express Server
+│   ├── database/             # SQL Schema & Seeds
+│   └── Dockerfile
+│
+├── docs/                     # 📚 Documentation
+│   ├── QUICK_START.md        # Getting Started
+│   ├── TECHNICAL_SUMMARY.md  # Technical Overview
+│   ├── INTEGRATION_GUIDE.md  # Frontend-API Integration
+│   ├── TROUBLESHOOTING.md    # Common Issues
+│   ├── DESIGN_SYSTEM_FA.md   # Design System
+│   └── ...
+│
+├── templates/                # 🎨 HTML Templates
+├── archive/                  # 📦 Old Files
+├── docker-compose.yml        # Docker Orchestration
+├── .gitignore
+├── README.md                 # This File
+└── Makefile                  # Quick Commands
 ```
 
 ---
 
-## 💡 نکات مهم
+## 📚 Documentation
 
-### ✅ همیشه استفاده کنید:
+### شروع کردن
+- **[docs/QUICK_START.md](./docs/QUICK_START.md)** - راهنمای 3 مرحله‌ای ⭐
+- **[setup.sh](./setup.sh)** - اسکریپت خودکار
 
-```typescript
-// رنگ‌های توکن
-backgroundColor: colors.surface
+### توسعه و Integration
+- **[docs/TECHNICAL_SUMMARY.md](./docs/TECHNICAL_SUMMARY.md)** - خلاصه تکنیکی
+- **[docs/INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md)** - Frontend-API
+- **[backend/README.md](./backend/README.md)** - Backend API
 
-// فاصله‌گذاری توکن
-marginBottom: spacing.md
+### تنظیم و استقرار
+- **[docs/DOCKER_SETUP.md](./docs/DOCKER_SETUP.md)** - Docker راهنما
+- **[docs/FIXES_APPLIED.md](./docs/FIXES_APPLIED.md)** - اصلاحات اعمال شده
 
-// اندازه فونت توکن
-fontSize: typography.body
+### مشکل‌گیری
+- **[docs/TROUBLESHOOTING.md](./docs/TROUBLESHOOTING.md)** - حل مشکلات
+- **[docs/STRUCTURE_AUDIT.md](./docs/STRUCTURE_AUDIT.md)** - Audit Report
+
+### طراحی و UI
+- **[docs/DESIGN_SYSTEM_FA.md](./docs/DESIGN_SYSTEM_FA.md)** - سیستم طراحی
+- **[docs/COMPONENT_GUIDE_FA.md](./docs/COMPONENT_GUIDE_FA.md)** - راهنمای اجزاء
+
+### Backend API
+- **[backend/API_DOCS.md](./backend/API_DOCS.md)** - Endpoint Reference
+- **[backend/DATABASE_SCHEMA.md](./backend/DATABASE_SCHEMA.md)** - DB Schema
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+| | |
+|---|---|
+| **Framework** | Expo 57.0.2 |
+| **Language** | React Native 0.86.0 + TypeScript |
+| **State** | Zustand 5.0.14 |
+| **Navigation** | React Navigation |
+| **Video** | FFmpeg (@ffmpeg/ffmpeg) |
+| **Storage** | AsyncStorage 3.1.1 |
+
+### Backend
+| | |
+|---|---|
+| **Framework** | Express.js 4.18.2 |
+| **Database** | PostgreSQL 15-alpine |
+| **Language** | TypeScript 5.5.4 |
+| **Runtime** | Node.js 20-alpine |
+| **Orchestration** | Docker Compose 3.9 |
+
+---
+
+## 📊 API Endpoints
+
+### Videos
+```
+GET    /api/videos           → دریافت تمام ویدیوها
+GET    /api/videos/:id       → دریافت یک ویدیو
+POST   /api/videos           → ایجاد ویدیو جدید
+PUT    /api/videos/:id       → به‌روزرسانی
+DELETE /api/videos/:id       → حذف ویدیو
 ```
 
-### ❌ این کارها را نکنید:
+### Journal
+```
+GET    /api/journal          → دریافت یادآوری‌ها
+GET    /api/journal/:id      → یادآوری یک‌ای
+POST   /api/journal          → ایجاد یادآوری
+PUT    /api/journal/:id      → به‌روزرسانی
+DELETE /api/journal/:id      → حذف
+```
 
-```typescript
-// سخت‌کدگذاری رنگ
-backgroundColor: '#101830'
+### Health
+```
+GET    /health               → بررسی سلامت API
+```
 
-// سخت‌کدگذاری فاصله
-marginBottom: 16
+**تفصیلات:** [backend/API_DOCS.md](./backend/API_DOCS.md)
 
-// سخت‌کدگذاری اندازه فونت
-fontSize: 14
+---
+
+## 🗄️ Database Schema
+
+### Tables
+- **videos** - ویدیوهای ساخته شده
+- **journal_entries** - یادآوری‌های کاربر
+- **attachments** - عکس‌ها و فایل‌های صوتی
+- **tags** - برچسب‌های یادآوری
+
+**تفصیلات:** [backend/DATABASE_SCHEMA.md](./backend/DATABASE_SCHEMA.md)
+
+---
+
+## 🎯 Quick Commands
+
+```bash
+# Setup (اسکریپت خودکار)
+./setup.sh
+
+# Docker
+docker compose up --build
+docker compose logs -f
+
+# Backend
+cd backend
+npm run build
+npm start
+
+# Frontend
+cd app
+npm install
+npm start
+
+# Health Check
+curl http://localhost:4000/health
+```
+
+**بیشتر:** [Makefile](./Makefile)
+
+---
+
+## 🔐 Environment Variables
+
+### Backend (`backend/.env`)
+```env
+PORT=4000
+DATABASE_URL=postgres://postgres:postgres@postgres:5432/absence_tracker
+```
+
+### Frontend (`app/.env.local`)
+```env
+EXPO_PUBLIC_API_URL=http://localhost:4000
 ```
 
 ---
 
-## 📱 اجزاء پرکاربرد
+## ✅ Verification Checklist
 
-### دکمه
-```jsx
-<Button title="ذخیره" />                              // اساسی
-<Button title="لغو" variant="secondary" />           // ثانویه
-<Button title="حذف" variant="danger" />              // خطر
-<Button title="بیشتر" variant="ghost" />             // شفاف
-<Button title="ارسال" loading />                     // بارگذاری
-<Button title="فعالسازی" disabled />                 // غیرفعال
+- [ ] Docker Desktop نصب شده
+- [ ] `docker compose up --build` اجرا شده
+- [ ] Health check: `curl http://localhost:4000/health`
+- [ ] API پاسخ می‌دهد
+- [ ] Database متصل است
+- [ ] Frontend (Expo) شروع شده
+
+---
+
+## 📞 Support & Resources
+
+### مستندات
+- 📖 [تمام مستندات](./docs/)
+- 🔧 [Backend API](./backend/README.md)
+- 📱 [Frontend Setup](./app/README.md)
+
+### مشکل‌گیری
+- ❓ [FAQ & Troubleshooting](./docs/TROUBLESHOOTING.md)
+- 🐛 [Audit Report](./docs/STRUCTURE_AUDIT.md)
+
+### سیستم طراحی
+- 🎨 [Design System](./docs/DESIGN_SYSTEM_FA.md)
+- 💡 [Component Guide](./docs/COMPONENT_GUIDE_FA.md)
+
+---
+
+## 📝 فایل‌های اصلی
+
+| فایل | توضیح |
+|------|--------|
+| `QUICK_START.md` | ⭐ شروع کنید |
+| `setup.sh` | اسکریپت خودکار |
+| `Makefile` | دستورات سریع |
+| `docker-compose.yml` | Docker config |
+| `docs/` | تمام راهنماها |
+
+---
+
+## 🎓 Learning Path
+
+1. **شروع:** [docs/QUICK_START.md](./docs/QUICK_START.md)
+2. **اجرا:** `docker compose up --build`
+3. **API:** [backend/API_DOCS.md](./backend/API_DOCS.md)
+4. **Integration:** [docs/INTEGRATION_GUIDE.md](./docs/INTEGRATION_GUIDE.md)
+5. **Design:** [docs/DESIGN_SYSTEM_FA.md](./docs/DESIGN_SYSTEM_FA.md)
+
+---
+
+## 🚀 Ready to Start?
+
+```bash
+# تک‌فرمان
+docker compose up --build
+
+# یا مرحله به مرحله
+./setup.sh
 ```
 
-### ورودی
-```jsx
-<Input label="نام" placeholder="نام خود" />
-<Input label="پیام" multiline maxLength={500} showCharCount />
-<Input label="ایمیل" error="ایمیل نامعتبر" helperText="نمونه@فارسی.ir" />
-```
+**سپس:**
+```bash
+# بررسی کنید
+curl http://localhost:4000/health
 
-### مودال
-```jsx
-<Modal visible={isOpen} title="عنوان" onClose={() => setIsOpen(false)}>
-  محتوای مودال
-</Modal>
-```
-
-### نشان
-```jsx
-<Badge label="جدید" variant="accent" />
-<Badge label="تایید" variant="success" />
-<Badge label="هشدار" variant="warning" />
+# و شروع کنید! 🎉
 ```
 
 ---
 
-## 🔧 استفاده از ثابت‌ها
+## 📄 License
 
-```typescript
-import { TRANSITIONS, PADDING, FONT_SIZE, COLOR_GROUPS } from '@/constants/design';
-
-// استفاده
-const animationDuration = TRANSITIONS.BASE;
-const padding = PADDING.LARGE;
-const fontSize = FONT_SIZE.BODY;
-const textColor = COLOR_GROUPS.TEXT.PRIMARY;
-```
+This project is private and belongs to [shiriiranmehr-png](https://github.com/shiriiranmehr-png)
 
 ---
 
-## 📖 مثال عملی: فرم ثبت‌نام
-
-```jsx
-const [formData, setFormData] = useState({ name: '', email: '' });
-const [errors, setErrors] = useState({});
-const [loading, setLoading] = useState(false);
-
-const handleSubmit = async () => {
-  // اعتبارسنجی
-  if (!formData.name.trim()) {
-    setErrors({ name: 'نام الزامی است' });
-    return;
-  }
-
-  setLoading(true);
-  try {
-    await registerUser(formData);
-    Alert.alert('موفق', 'ثبت‌نام موفقیت‌آمیز بود');
-  } catch (error) {
-    setErrors({ form: 'خطای سرویس' });
-  } finally {
-    setLoading(false);
-  }
-};
-
-return (
-  <ScreenContainer>
-    <AppHeader title="ثبت‌نام" />
-
-    {errors.form && (
-      <Alert title="خطا" message={errors.form} variant="error" />
-    )}
-
-    <FormField
-      label="نام کامل"
-      required
-      value={formData.name}
-      onChangeText={(name) => setFormData({ ...formData, name })}
-      error={errors.name}
-      placeholder="نام خود را وارد کنید"
-    />
-
-    <FormField
-      label="ایمیل"
-      required
-      value={formData.email}
-      onChangeText={(email) => setFormData({ ...formData, email })}
-      placeholder="ایمیل@نمونه.com"
-    />
-
-    <Button
-      title="ثبت‌نام"
-      onPress={handleSubmit}
-      loading={loading}
-      fullWidth
-    />
-  </ScreenContainer>
-);
-```
-
----
-
-## 🛠️ مراجع سریع
-
-| فایل | مکان | توضیح |
-|------|------|--------|
-| پوسته تاریک | `app/src/theme/dark.ts` | تمام توکن‌های رنگی |
-| پوسته روشن | `app/src/theme/light.ts` | پوسته‌ی روشن |
-| ثابت‌ها | `app/src/constants/design.ts` | توکن‌های طراحی |
-| اجزاء | `app/src/components/ui/` | تمام اجزاء |
-
----
-
-## ⚡ چک‌لیست دسترسی‌پذیری
-
-- [ ] تمام دکمه‌ها حداقل 44x44 اندازه دارند
-- [ ] تمام ورودی‌ها برچسب دارند
-- [ ] تضاد رنگی کافی (4.5:1)
-- [ ] بازخورد برای حالت‌های بارگذاری
-- [ ] پیام‌های خطا واضح
-- [ ] پشتیبانی صدای تصویر
-
----
-
-## 📞 سوالات متداول
-
-### س: چطور یک دکمه بزرگ بسازم؟
-**ج:** از `size` استفاده کنید:
-```jsx
-<Button title="بزرگ" size="lg" />
-```
-
-### س: چطور error message نمایش دهم؟
-**ج:** از `error` prop استفاده کنید:
-```jsx
-<Input label="ایمیل" error="ایمیل نامعتبر" />
-```
-
-### س: چطور یک مودال ایجاد کنم؟
-**ج:** Modal جزء استفاده کنید:
-```jsx
-<Modal visible={isOpen} title="عنوان" onClose={() => setIsOpen(false)}>
-  محتوا
-</Modal>
-```
-
-### س: چطور فاصله‌گذاری صحیح را تنظیم کنم؟
-**ج:** از توکن spacing استفاده کنید:
-```jsx
-marginBottom: spacing.md  // 16px
-paddingHorizontal: spacing.lg  // 20px
-```
-
----
-
-## 🎉 کار شما کامل است!
-
-سیستم طراحی شما آماده برای استفاده است. تمام اجزاء:
-- ✅ مکمل و تست‌شده
-- ✅ دسترسی‌پذیر
-- ✅ مستند‌شده (به فارسی!)
-- ✅ آماده برای تولید
-
-**اکنون شما می‌توانید:**
-1. اجزاء جدید استفاده کنید
-2. صفحات جدید بسازید
-3. ویژگی‌های جدید اضافه کنید
-
-**سرعت رشد شما افزایش می‌یابد!** 🚀
-
----
-
-## 📚 منابع بیشتر
-
-- [DESIGN_SYSTEM_FA.md](./DESIGN_SYSTEM_FA.md) - طراحی کامل
-- [COMPONENT_GUIDE_FA.md](./COMPONENT_GUIDE_FA.md) - مثال‌های کد
-- [DESIGN_SYSTEM_SUMMARY_FA.md](./DESIGN_SYSTEM_SUMMARY_FA.md) - خلاصه
-
----
-
-**سؤالی دارید؟ کدی نمی‌فهمید؟**
-مستندات را بخوانید یا کد را بررسی کنید. همه چیز تفصیلی است! ✨
+**Last Updated:** 3 July 2026  
+**Status:** ✅ Ready for Development

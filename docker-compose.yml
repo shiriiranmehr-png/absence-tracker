@@ -26,6 +26,8 @@ services:
       - '4000:4000'
     volumes:
       - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/dist
 
 volumes:
   postgres-data:
