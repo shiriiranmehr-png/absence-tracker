@@ -20,6 +20,7 @@ import { Card } from '../components/ui/Card';
 import { ScreenContainer } from '../components/ui/ScreenContainer';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { colors, radius, spacing, typography } from '../theme';
+import { useVideoLibrary } from '../hooks/useVideoLibrary';
 
 type ReelPhoto = {
   id: string;
@@ -175,6 +176,7 @@ export function ReelStudioScreen() {
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const ffmpegRef = useRef<FFmpeg | null>(null);
+  const { addVideo } = useVideoLibrary();
 
   useEffect(() => {
     setRemaining(duration);
@@ -615,6 +617,34 @@ export function ReelStudioScreen() {
       const blob = new Blob([outputBuffer], { type: 'video/mp4' });
       const url = URL.createObjectURL(blob);
       setExportUrl(url);
+
+      const toBase64 = async (blobItem: Blob): Promise<string> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const result = reader.result as string | ArrayBuffer | null;
+            if (typeof result === 'string') {
+              resolve(result.split(',')[1] ?? '');
+            } else {
+              reject(new Error('Base64 conversion failed'));
+            }
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blobItem);
+        });
+      };
+
+      const videoBase64 = await toBase64(blob);
+      const thumbnailUri = activePhotoUri || createTemplatePreviewUri(selectedTemplate);
+      await addVideo({
+        title: `Reel ${new Date().toLocaleString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' })}`,
+        fileName: `reel-${Date.now()}.mp4`,
+        duration,
+        thumbnailUri,
+        contentBase64: videoBase64,
+        templateId: selectedTemplate.id,
+      });
+
       if (typeof window !== 'undefined') {
         const link = document.createElement('a');
         link.href = url;

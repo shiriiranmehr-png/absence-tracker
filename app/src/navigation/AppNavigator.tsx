@@ -8,6 +8,7 @@ import { JournalScreen } from '../screens/JournalScreen';
 import { AnalyticsScreen } from '../screens/AnalyticsScreen';
 import { EntryDetailScreen } from '../screens/EntryDetailScreen';
 import { ReelStudioScreen } from '../screens/ReelStudioScreen';
+import { LibraryScreen } from '../screens/LibraryScreen';
 import { Button } from '../components/ui/Button';
 import { colors } from '../theme';
 
@@ -58,7 +59,9 @@ export function AppNavigator() {
                   ? 'journal-outline'
                   : route.name === 'Reels'
                     ? 'film-outline'
-                    : 'analytics-outline';
+                    : route.name === 'Library'
+                      ? 'library-outline'
+                      : 'analytics-outline';
 
             return <Ionicons name={iconName as never} size={size} color={color} />;
           },
@@ -67,6 +70,7 @@ export function AppNavigator() {
         <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Timeline' }} />
         <Tab.Screen name="Journal" component={JournalStack} options={{ title: 'Journal' }} />
         <Tab.Screen name="Reels" component={ReelStudioScreen} options={{ title: 'Reels' }} />
+        <Tab.Screen name="Library" component={LibraryScreen} options={{ title: 'Library' }} />
         <Tab.Screen name="Analytics" component={AnalyticsScreen} options={{ title: 'Insights' }} />
       </Tab.Navigator>
     </NavigationContainer>
